@@ -1,0 +1,65 @@
+body {
+  background-color: #C6D2ED;
+  font-family: 'Dosis', sans-serif;
+  color: white;
+  height: 100%;
+  width: 100%;
+}
+
+section {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  margin: 1%;
+}
+
+h1 {
+  text-align: center;
+}
+
+input {
+  width: 90%;
+  height: 90%;
+  text-align: center;
+}
+
+div img {
+  width: 75px;
+  height: 75px;
+}
+
+.square {
+  height: 50px;
+  flex: 1 1 3vw;
+  border: 2px solid #6380bf;
+}
+
+.darkerSquare {
+  background-color: #ccd3e3;
+}
+
+.hidden {
+  display: none;
+}
+
+#solve_button {
+  font-size: 1em;
+}
+
+#board {
+  width: 30%;
+  padding: 1%;
+  display: flex;
+  flex-wrap: wrap;
+  border: 5px solid;
+}
+
+#buttons {
+  display: flex;
+  flex-direction: row;
+}
