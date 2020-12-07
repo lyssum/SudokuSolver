@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "node test.js",
-    "start": "babel-node app.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
