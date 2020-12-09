@@ -13,6 +13,7 @@
     id("clear_button").addEventListener("click", clearBoard);
   }
 
+  // Generates the page's Sudoku Board
   function genBoard() {
     let colorIndex = 1;
     for (let i = 0; i < SUDOKU_BOARD_SQUARES; i++) {
@@ -28,6 +29,8 @@
     }
   }
 
+  // Fetches the default board's values and
+  // fills the board with them
   function getDefaultBoard() {
     fetch("/getDefault")
       .then(checkStatus)
@@ -36,6 +39,7 @@
       .catch(console.error());
   }
 
+  // Clears a board of its values
   function clearBoard() {
     resetButtons();
     let inputs = qsa("input");
@@ -44,11 +48,14 @@
     }
   }
 
+  // Resets a board to the default puzzle
   function resetBoard() {
     resetButtons();
     getDefaultBoard();
   }
 
+  // Checks if the solve button is disabled,
+  // if so, resets it to  enable it
   function resetButtons() {
     if (id("solve_button").disabled) {
       id("solve_button").disabled = false;
@@ -56,7 +63,12 @@
     }
   }
 
+  // Sends the current board to the SudokuSolver and
+  // retrieves a solved board. Displays the solved board.
   function solvePuzzle() {
+    id("error").textContent = "";
+    id("reset_button").disabled = true;
+    id("clear_button").disabled = true;
     id("solve_button").disabled = true;
     id("solve_button").textContent = "Thinking...";
     qs("#loading").classList.toggle("hidden");
@@ -68,14 +80,26 @@
       .then(resp => resp.text())
       .then(fillBoard)
       .then(solved)
-      .catch(console.error());
+      .catch(genErrorText);
   }
 
+  /**
+   * Generates an error message displayed to the user
+   * @param {String} errorText Error text to be displayed
+   */
+  function genErrorText(errorText) {
+    id("error").textContent = errorText;
+  }
+
+  // Disables the solve button
   function solved() {
+    id("reset_button").disabled = false;
+    id("clear_button").disabled = false;
     qs("#loading").classList.toggle("hidden");
     id("solve_button").textContent = "Solved!";
   }
 
+  // Parses the board for its values
   function parseBoard() {
     let currPuzzle = "";
     let inputs = qsa("input");
@@ -85,6 +109,13 @@
     return currPuzzle;
   }
 
+  /**
+   * Changes the bg color of the inputs to mimic a
+   * sudoku board
+   * @param {int} colorIndex the index of the tile color
+   * @param {int} index index of the board tiles
+   * @param {Element} input input element to change color
+   */
   function changeColor(colorIndex, index, input) {
     if (index >= 0 && index <= 26 || index >= 54) {
       if (colorIndex >= 4 && colorIndex <= 6) {
@@ -103,6 +134,10 @@
     return colorIndex;
   }
 
+  /**
+   * Fills the board with a given puzzle
+   * @param {String} puzzle a given puzzle to display
+   */
   function fillBoard(puzzle) {
     puzzle = puzzle.replace(/\s/g,'');
     let inputs = qsa("input");

@@ -1,9 +1,17 @@
 import Tile from "./Tile.js";
 
 export default class SudokuSolver {
+
+  // {Tile[][]} This sudoku solver's board
   board;
+  // {boolean} Whether this board is valid
   isValid;
 
+  /**
+   * Constructs a SudokuSolver from a given board or from
+   * another instance of a SudokuSolver
+   * @param {Object} board a board to construct a solver for
+   */
   constructor(board) {
     if (typeof board == "string") {
       board = board.replace(/\s/g,'');
@@ -29,7 +37,11 @@ export default class SudokuSolver {
   }
 
 
-
+  /**
+   * Creates a 2D array of a given length
+   * @param {int} length length of which to create an array
+   * @returns x a newly created 2D array
+   */
   createArray(length) {
     let x = new Array(length);
     for (let i = 0; i < x.length; i++) {
@@ -38,7 +50,7 @@ export default class SudokuSolver {
     return x;
   }
 
-
+  // Updates the possible values for every tile in the Sudoku Solver
   updatePossible() {
     let b = true;
     for (let rows = 0; rows < 9; rows++){
@@ -62,6 +74,11 @@ export default class SudokuSolver {
     return b;
   }
 
+  /**
+   * Creates a row set from a given row of tiles
+   * @param {Tile[]} row An array of tiles representing a single row
+   * @returns {Set<Tile>} a set with references to each tile in a given row
+   */
   horizontal(row) {
     let occupied = new Set();
     for (let t of row) {
@@ -70,6 +87,13 @@ export default class SudokuSolver {
     return occupied;
   }
 
+
+  /**
+   * Creates a column set from a given column of tiles
+   * @param {Tile[][]} board An 2D array of tiles for this solver's board
+   * @param {int} col the current column number
+   * @returns {Set<Tile>} a set with references to each tile in a given column
+   */
   vertical(board, col) {
     let tiles = new Set();
     for(let i = 0; i < 9; i++){
@@ -78,6 +102,11 @@ export default class SudokuSolver {
     return tiles;
   }
 
+  /**
+   * Creates a region set corresponding to the region number
+   * @param {int} region the current region number
+   * @param {Tile[][]} board An 2D array of tiles for this solver's board
+   */
   buildRegion(region, board) {
     let list = new Set();
     let xSpan = Math.floor(region / 3) * 3;
@@ -90,6 +119,11 @@ export default class SudokuSolver {
     return list;
   }
 
+  /**
+   * Changes the possible values of each tile
+   * @param {Set<Tile>} list A set of tiles to change the values of
+   * @returns {Boolean} a boolean representing if the board is a solution
+   */
   handleList(list) {
     let values = new Set();
     let yo = new Set();
@@ -114,6 +148,11 @@ export default class SudokuSolver {
     return b;
   }
 
+
+  /**
+   * Creates a string representation of the solved board
+   * @returns {String} a string representation of the board
+   */
   toString() {
     if (this.board !== null) {
       let boardString = "";
@@ -131,10 +170,12 @@ export default class SudokuSolver {
     }
   }
 
+  // Creates a solution for this board
   solve() {
     this.board = this.solveHelper(this.board, -1, -1, 0);
   }
 
+  // Find the next empty coordinate to solve
   findNextCoord() {
     for(let row = 0; row < 9; row++){
       for(let col = 0; col < 9; col++){
@@ -146,6 +187,14 @@ export default class SudokuSolver {
     return -1;
   }
 
+  /**
+   * Creates a solution for this board
+   * @param {SudokuSolver} solver the current Solver
+   * @param {int} y An integer representing the current y coordinate
+   * @param {int} x An integer representing the current x coordinate
+   * @param {int} newVal A new possible value
+   * @returns {Tile[][]} a solved board
+   */
   solveHelper(solver, y, x, newVal) {
     let newS = new SudokuSolver(solver);
     if(y != -1){

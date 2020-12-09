@@ -15,19 +15,25 @@ const SERVER_ERROR = 500;
 const PARAMS_ERROR = 400;
 const PORT_NUM = 8000;
 
+// Uses the board parameter to solve a given sudoku board. Sends a solved board as a response.
 app.post("/solve", async (req, res) => {
   try {
     let board = req.body["board"];
     let solver = new SudokuSolver(board);
     solver.solve();
-    let newBoard = solver.toString();
     res.type("text");
-    res.send(newBoard);
+    if (solver.board !== null) {
+      let newBoard = solver.toString();
+      res.send(newBoard);
+    } else {
+      res.status(PARAMS_ERROR).send("The given puzzle was not a valid Sudoku Puzzle!");
+    }
   } catch (err) {
     res.status(SERVER_ERROR).send("Yikes! Something went wrong on the server!");
   }
 });
 
+// Responds with a the board.txt that contains the default sudoku board
 app.get("/getDefault", async (req, res) => {
   res.type("text");
   try {
