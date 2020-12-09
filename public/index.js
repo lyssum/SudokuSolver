@@ -66,7 +66,7 @@
   // Sends the current board to the SudokuSolver and
   // retrieves a solved board. Displays the solved board.
   function solvePuzzle() {
-    id("error").textContent = "";
+    id("error").classList.toggle("hidden", !id("error").classList.contains("hidden"));
     id("reset_button").disabled = true;
     id("clear_button").disabled = true;
     id("solve_button").disabled = true;
