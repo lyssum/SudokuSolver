@@ -41,6 +41,10 @@
 
   // Clears a board of its values
   function clearBoard() {
+    let inputs = qsa("input");
+    for (let i = 0; i < inputs.length; i++) {
+      inputs[i].disabled = false;
+    }
     if (!id("solved").classList.contains("hidden")) {
       id("solved").classList.toggle("hidden");
     }
@@ -48,7 +52,6 @@
       id("error").classList.toggle("hidden");
     }
     resetButtons();
-    let inputs = qsa("input");
     for (let i = 0; i < inputs.length; i++) {
       inputs[i].value = 0;
     }
@@ -56,6 +59,10 @@
 
   // Resets a board to the default puzzle
   function resetBoard() {
+    let inputs = qsa("input");
+    for (let i = 0; i < inputs.length; i++) {
+      inputs[i].disabled = false;
+    }
     if (!id("solved").classList.contains("hidden")) {
       id("solved").classList.toggle("hidden");
     }
@@ -78,6 +85,10 @@
   // Sends the current board to the SudokuSolver and
   // retrieves a solved board. Displays the solved board.
   function solvePuzzle() {
+    let inputs = qsa("input");
+    for (let i = 0; i < inputs.length; i++) {
+      inputs[i].disabled = true;
+    }
     if (!id("error").classList.contains("hidden")) {
       id("error").classList.toggle("hidden");
     }
