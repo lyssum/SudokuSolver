@@ -26,7 +26,7 @@ app.post("/solve", async (req, res) => {
       let newBoard = solver.toString();
       res.send(newBoard);
     } else {
-      res.status(PARAMS_ERROR).send({error: "The given puzzle was not a valid Sudoku Puzzle! Refresh to try again!"});
+      res.status(PARAMS_ERROR).send({error: "The given puzzle was not a valid Sudoku Puzzle! Try again with a new puzzle!"});
     }
   } catch (err) {
     res.status(SERVER_ERROR).send({error: "Yikes! Something went wrong on the server!"});

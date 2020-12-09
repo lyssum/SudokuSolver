@@ -41,6 +41,9 @@
 
   // Clears a board of its values
   function clearBoard() {
+    if (!id("solved").classList.contains("hidden")) {
+      id("solved").classList.toggle("hidden");
+    }
     resetButtons();
     let inputs = qsa("input");
     for (let i = 0; i < inputs.length; i++) {
@@ -50,6 +53,12 @@
 
   // Resets a board to the default puzzle
   function resetBoard() {
+    if (!id("solved").classList.contains("hidden")) {
+      id("solved").classList.toggle("hidden");
+    }
+    if (!id("error").classList.contains("hidden")) {
+      id("error").classList.toggle("hidden");
+    }
     resetButtons();
     getDefaultBoard();
   }
@@ -102,6 +111,7 @@
 
   // Disables the solve button
   function solved() {
+    id("solved").classList.toggle("hidden");
     id("reset_button").disabled = false;
     id("clear_button").disabled = false;
     qs("#loading").classList.toggle("hidden");
