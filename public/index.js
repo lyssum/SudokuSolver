@@ -94,6 +94,10 @@
       id("error").classList.toggle("hidden");
     }
     id("error").textContent = errorText;
+    qs("#loading").classList.toggle("hidden");
+    resetButtons();
+    id("reset_button").disabled = false;
+    id("clear_button").disabled = false;
   }
 
   // Disables the solve button
