@@ -66,7 +66,9 @@
   // Sends the current board to the SudokuSolver and
   // retrieves a solved board. Displays the solved board.
   function solvePuzzle() {
-    id("error").classList.toggle("hidden", !id("error").classList.contains("hidden"));
+    if (!id("error").classList.contains("hidden")) {
+      id("error").classList.toggle("hidden");
+    }
     id("reset_button").disabled = true;
     id("clear_button").disabled = true;
     id("solve_button").disabled = true;
@@ -88,6 +90,9 @@
    * @param {String} errorText Error text to be displayed
    */
   function genErrorText(errorText) {
+    if (id("error").classList.contains("hidden")) {
+      id("error").classList.toggle("hidden");
+    }
     id("error").textContent = errorText;
   }
 

@@ -26,10 +26,10 @@ app.post("/solve", async (req, res) => {
       let newBoard = solver.toString();
       res.send(newBoard);
     } else {
-      res.status(PARAMS_ERROR).send("The given puzzle was not a valid Sudoku Puzzle!");
+      res.status(PARAMS_ERROR).send({error: "The given puzzle was not a valid Sudoku Puzzle! Refresh to try again!"});
     }
   } catch (err) {
-    res.status(SERVER_ERROR).send("Yikes! Something went wrong on the server!");
+    res.status(SERVER_ERROR).send({error: "Yikes! Something went wrong on the server!"});
   }
 });
 
@@ -41,9 +41,9 @@ app.get("/getDefault", async (req, res) => {
     res.send(data);
   } catch (err) {
     if (err.code === "ENOENT") {
-      res.status(SERVER_ERROR).send("Oh no! A file is missing!");
+      res.status(SERVER_ERROR).send({error: "Oh no! A file is missing!"});
     } else {
-      res.status(SERVER_ERROR).send("Yikes! Something went wrong on the server!");
+      res.status(SERVER_ERROR).send({error: "Yikes! Something went wrong on the server!"});
     }
   }
 });
