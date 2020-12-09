@@ -113,6 +113,10 @@
    * @param {String} errorText Error text to be displayed
    */
   function genErrorText(errorText) {
+    let inputs = qsa("input");
+    for (let i = 0; i < inputs.length; i++) {
+      inputs[i].disabled = false;
+    }
     if (id("error").classList.contains("hidden")) {
       id("error").classList.toggle("hidden");
     }
