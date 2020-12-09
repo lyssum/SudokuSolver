@@ -44,6 +44,9 @@
     if (!id("solved").classList.contains("hidden")) {
       id("solved").classList.toggle("hidden");
     }
+    if (!id("error").classList.contains("hidden")) {
+      id("error").classList.toggle("hidden");
+    }
     resetButtons();
     let inputs = qsa("input");
     for (let i = 0; i < inputs.length; i++) {
