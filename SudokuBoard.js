@@ -82,18 +82,11 @@ export default class SudokuBoard {
 
     }
 
-    neighs() {
-        return NEIGHS;
-    }
-    groups() {
-        return GROUPS;
-    }
-
     // creates a copy
     copy() {
         var temp = new SudokuBoard();
-        temp.board = this.board;
-        temp.choices = this.choices;
+        temp.board = this.board.slice();
+        temp.choices = this.choices.slice();
         temp.score = this.score;
         return temp;
     }
@@ -104,9 +97,7 @@ export default class SudokuBoard {
         var o = this.copy();
         o.board[ind] = n;
         o.update(ind);
-        for (const neigh in NEIGHS[ind]) {
-            o.update(neigh);
-        }
+        NEIGHS[ind].forEach(neigh => { o.update(neigh); });
         o.calcScore();
         return o;
     }
@@ -132,9 +123,7 @@ export default class SudokuBoard {
         for (let i = 0; i < L + 1; i++) {
             neighbors[i] = false;
         }
-        for (let i in NEIGHS[ind]) {
-            neighbors[this.board[i]] = true;
-        }
+        NEIGHS[ind].forEach(i => { neighbors[this.board[i]] = true; });
         return neighbors;
     }
 
@@ -194,8 +183,6 @@ export default class SudokuBoard {
     // calculate the score for the board
     calcScore() {
         this.score = 0;
-        for (let c in this.choices) {
-            this.score -= c;
-        }
+        this.choices.forEach(c => { this.score -= c; });
     }
 }
