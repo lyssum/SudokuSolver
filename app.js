@@ -18,8 +18,8 @@ const PORT_NUM = 8000;
 // Uses the board parameter to solve a given sudoku board. Sends a solved board as a response.
 app.post("/solve", async (req, res) => {
   try {
-    var board = req.body["board"];
-    board = solve(board);
+    let boardInput = req.body["board"];
+    let board = solve(boardInput);
     if (board !== null) {
       res.send(board.toString());
     } else {
