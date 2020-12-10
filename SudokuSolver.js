@@ -16,7 +16,7 @@ export default function solve(board) {
   if (s.size == 0) {
     return null;
   }
-  return s.values().next();
+  return s.values().next().value;
 }
 
 // private helper to solve
@@ -37,19 +37,18 @@ function uncheckedSolve(board, limit) {
       }
     }
     states.sort(SudokuBoard.compare);
-    for (let state in states) {
-      let solved = uncheckedSolve(state, limit);
-      for (let b in solved) {
+    for (let i = 0; i < states.length; i++) {
+      let state = states[i];
+      let solved = uncheckedSolve(state, limit - set.size);
+      solved.forEach(b => {
         set.add(b);
-      }
-      if (set.size >= limit)
+      });
+      if (set.size >= limit) {
         return set;
+      }
     }
     return set;
   }
 }
-
-
-
 
 
